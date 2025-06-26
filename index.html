@@ -139,6 +139,17 @@
             }
         }
 
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+
         .hero-content {
             max-width: 800px;
             margin: 0 auto;
@@ -721,7 +732,46 @@
             color: var(--primary-pink);
             width: 20px;
         }
+
+        .badge {
+            background: var(--primary-pink);
+            color: var(--primary-blue);
+            padding: 0.25rem 0.5rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+
+        .badge-neutral {
+            background: #eee;
+            color: var(--dark-gray);
+            padding: 0.25rem 0.5rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+        }
+
+        .badge-positive {
+            background: #d1fae5;
+            color: #065f46;
+            padding: 0.25rem 0.5rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+        }
+
+        .badge-negative {
+            background: #fef2f2;
+            color: #991b1b;
+            padding: 0.25rem 0.5rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+        }
+
+        #modal.hidden {
+            display: none !important;
+        }
     </style>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 </head>
 
 <body>
@@ -747,6 +797,7 @@
                             class="nav-link">Instituciones</a></li>
                     <li><a href="javascript:void(0)" onclick="showPage('project')" class="nav-link">Proyecto</a></li>
                     <li><a href="javascript:void(0)" onclick="showPage('contact')" class="nav-link">Contacto</a></li>
+                    <li><a href="javascript:void(0)" onclick="showPage('noticias')" class="nav-link">Noticias</a></li>
                 </ul>
             </nav>
         </div>
@@ -1585,6 +1636,547 @@
                 </div>
             </div>
         </div>
+
+        <!-- NEWS PAGE-->
+        <div id="noticias" class="page">
+            <section class="hero-banner">
+                <div class="hero-content">
+                    <h1>Resumen Semanal</h1>
+                    <p>Análisis de medios digitales sobre cáncer de seno</p>
+                </div>
+            </section>
+
+            <section class="info-section">
+                <div class="container">
+                    <h2 class="section-title">Resumen Semanal: Cobertura Global sobre Cáncer de Seno</h2>
+                    <p style="text-align: center; margin-top: -1rem; color: var(--dark-gray); font-size: 1rem;">
+                        Análisis automatizado de medios digitales en español e inglés – Semana 24 de 2025
+                    </p>
+
+                    <!-- Tarjetas resumen -->
+                    <div class="cards-grid" style="margin-top: 2rem;">
+                        <div class="info-card">
+                            <h3>Noticias Recolectadas</h3>
+                            <p><strong style="font-size: 1.8rem; color: var(--primary-blue);">134</strong></p>
+                        </div>
+                        <div class="info-card">
+                            <h3>Idioma Dominante</h3>
+                            <p><strong>Inglés (64%)</strong><br><span
+                                    style="color: var(--dark-gray); font-size: 0.9rem;">Español (36%)</span></p>
+                        </div>
+                        <div class="info-card">
+                            <h3>País Más Activo</h3>
+                            <p><strong>Estados Unidos</strong></p>
+                        </div>
+                        <div class="info-card">
+                            <h3>Medio Más Frecuente</h3>
+                            <p><strong>WebMD</strong></p>
+                        </div>
+                    </div>
+
+                    <!-- Gráficos -->
+                    <div class="cards-grid" style="margin-top: 3rem;">
+                        <div class="info-card">
+                            <h3>Distribución de Idiomas</h3>
+                            <img src="https://quickchart.io/chart?c={type:'pie',data:{labels:['Inglés','Español'],datasets:[{data:[64,36]}]}}"
+                                alt="Distribución por idioma"
+                                style="width: 100%; height: 260px; object-fit: contain; margin-top: 1rem;" />
+                        </div>
+                        <div class="info-card">
+                            <h3>Noticias por Día</h3>
+                            <img src="https://quickchart.io/chart?c={type:'bar',data:{labels:['Lun','Mar','Mié','Jue','Vie','Sáb','Dom'],datasets:[{label:'Noticias',data:[15,22,18,24,20,19,16]}]}}"
+                                alt="Gráfico semanal"
+                                style="width: 100%; height: 260px; object-fit: contain; margin-top: 1rem;" />
+                        </div>
+                    </div>
+
+                    <!-- Análisis generado por IA -->
+                    <div class="highlight-box" style="margin-top: 3rem;">
+                        <h3>Resumen Automatizado</h3>
+                        <p style="font-size: 1rem;">
+                            Esta semana se observó un aumento en las noticias relacionadas con prevención y diagnóstico
+                            temprano,
+                            especialmente en portales latinoamericanos. La cobertura tuvo un tono mayormente
+                            informativo, con un leve
+                            incremento en artículos de tono emocional.
+                        </p>
+                    </div>
+                </div>
+            </section>
+            <section class="info-section">
+                <div class="container">
+                    <h2 class="section-title">Explorador Temático</h2>
+                    <p style="text-align: center; margin-top: -1rem; color: var(--dark-gray); font-size: 1rem;">
+                        Clasificación de noticias sobre cáncer de seno según enfoque principal
+                    </p>
+
+                    <!-- Filtros -->
+                    <div class="cards-grid"
+                        style="margin-top: 2rem; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+                        <div class="info-card" style="padding: 1rem;">
+                            <label for="pais"
+                                style="font-size: 0.85rem; color: var(--dark-gray); font-weight: bold;">País</label>
+                            <select id="pais"
+                                style="width: 100%; padding: 0.5rem; border-radius: 8px; border: 1px solid #ccc; margin-top: 0.5rem;">
+                                <option>Todos</option>
+                                <option>Colombia</option>
+                                <option>Estados Unidos</option>
+                                <option>España</option>
+                                <option>México</option>
+                            </select>
+                        </div>
+                        <div class="info-card" style="padding: 1rem;">
+                            <label for="idioma"
+                                style="font-size: 0.85rem; color: var(--dark-gray); font-weight: bold;">Idioma</label>
+                            <select id="idioma"
+                                style="width: 100%; padding: 0.5rem; border-radius: 8px; border: 1px solid #ccc; margin-top: 0.5rem;">
+                                <option>Todos</option>
+                                <option>Español</option>
+                                <option>Inglés</option>
+                            </select>
+                        </div>
+                        <div class="info-card" style="padding: 1rem;">
+                            <label for="fecha"
+                                style="font-size: 0.85rem; color: var(--dark-gray); font-weight: bold;">Fecha</label>
+                            <input type="date" id="fecha"
+                                style="width: 100%; padding: 0.5rem; border-radius: 8px; border: 1px solid #ccc; margin-top: 0.5rem;">
+                        </div>
+                        <div class="info-card" style="padding: 1rem; display: flex; align-items: flex-end;">
+                            <button
+                                style="background: var(--primary-blue); color: white; width: 100%; padding: 0.6rem 1rem; border-radius: 30px; font-weight: bold; border: none; cursor: pointer;">
+                                Aplicar filtros
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Gráfico de barras -->
+                    <div class="info-card" style="margin-top: 3rem;">
+                        <h3 style="color: var(--primary-blue); font-size: 1.3rem; margin-bottom: 1rem;">Temas abordados
+                            esta semana</h3>
+                        <img src="https://quickchart.io/chart?c={type:'bar',data:{labels:['Prevención','Tratamiento','Diagnóstico','Testimonios','Política pública','Investigación','Otros'],datasets:[{label:'Español',data:[12,9,8,5,6,4,3],backgroundColor:'rgba(99,102,241,0.7)'},{label:'Inglés',data:[18,15,13,7,10,6,5],backgroundColor:'rgba(16,185,129,0.7)'}]}}"
+                            alt="Gráfico de temas" style="width: 100%; height: 320px; object-fit: contain;" />
+                    </div>
+
+                    <!-- Resumen automatizado -->
+                    <div class="highlight-box" style="margin-top: 2rem;">
+                        <h3>Resumen Automatizado</h3>
+                        <p style="font-size: 1rem;">
+                            Esta semana, el tema más abordado en Colombia fue <strong>prevención</strong>, mientras que
+                            en Estados Unidos
+                            predominaron artículos sobre <strong>tratamiento e investigación</strong>. El interés en
+                            políticas públicas
+                            aumentó ligeramente en medios en español.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="info-section">
+                <div class="container">
+                    <h2 class="section-title">Análisis de Tono Informativo</h2>
+                    <p style="text-align: center; margin-top: -1rem; color: var(--dark-gray); font-size: 1rem;">
+                        Clasificación emocional de las noticias sobre cáncer de seno según PLN
+                    </p>
+
+                    <!-- Filtros -->
+                    <div class="cards-grid"
+                        style="margin-top: 2rem; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+                        <div class="info-card" style="padding: 1rem;">
+                            <label for="pais-tono"
+                                style="font-size: 0.85rem; color: var(--dark-gray); font-weight: bold;">País</label>
+                            <select id="pais-tono"
+                                style="width: 100%; padding: 0.5rem; border-radius: 8px; border: 1px solid #ccc; margin-top: 0.5rem;">
+                                <option>Todos</option>
+                                <option>Colombia</option>
+                                <option>Estados Unidos</option>
+                                <option>España</option>
+                                <option>México</option>
+                            </select>
+                        </div>
+                        <div class="info-card" style="padding: 1rem;">
+                            <label for="idioma-tono"
+                                style="font-size: 0.85rem; color: var(--dark-gray); font-weight: bold;">Idioma</label>
+                            <select id="idioma-tono"
+                                style="width: 100%; padding: 0.5rem; border-radius: 8px; border: 1px solid #ccc; margin-top: 0.5rem;">
+                                <option>Todos</option>
+                                <option>Español</option>
+                                <option>Inglés</option>
+                            </select>
+                        </div>
+                        <div class="info-card" style="padding: 1rem;">
+                            <label for="fecha-tono"
+                                style="font-size: 0.85rem; color: var(--dark-gray); font-weight: bold;">Fecha</label>
+                            <input type="date" id="fecha-tono"
+                                style="width: 100%; padding: 0.5rem; border-radius: 8px; border: 1px solid #ccc; margin-top: 0.5rem;">
+                        </div>
+                        <div class="info-card" style="padding: 1rem; display: flex; align-items: flex-end;">
+                            <button
+                                style="background: var(--primary-blue); color: white; width: 100%; padding: 0.6rem 1rem; border-radius: 30px; font-weight: bold; border: none; cursor: pointer;">
+                                Aplicar filtros
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Gráfico de pastel -->
+                    <div class="info-card" style="margin-top: 3rem;">
+                        <h3 style="color: var(--primary-blue); font-size: 1.3rem; margin-bottom: 1rem;">Distribución de
+                            Sentimientos</h3>
+                        <img src="https://quickchart.io/chart?c={type:'pie',data:{labels:['Positivo','Neutro','Negativo'],datasets:[{data:[28,53,19],backgroundColor:['rgba(16,185,129,0.8)','rgba(107,114,128,0.8)','rgba(124,58,237,0.8)']} ]}}"
+                            alt="Gráfico de sentimiento" style="width: 100%; height: 320px; object-fit: contain;" />
+                    </div>
+
+                    <!-- Línea temporal -->
+                    <div class="info-card" style="margin-top: 2rem;">
+                        <h3 style="color: var(--primary-blue); font-size: 1.3rem; margin-bottom: 1rem;">Evolución
+                            Semanal del Tono</h3>
+                        <img src="https://quickchart.io/chart?c={type:'line',data:{labels:['Sem 20','Sem 21','Sem 22','Sem 23','Sem 24'],datasets:[{label:'Positivo',data:[25,26,27,28,28],borderColor:'rgba(16,185,129,1)',fill:false},{label:'Negativo',data:[22,20,21,19,19],borderColor:'rgba(124,58,237,1)',fill:false},{label:'Neutro',data:[53,54,52,53,53],borderColor:'rgba(107,114,128,1)',fill:false}]},options:{plugins:{legend:{position:'bottom'}}}}"
+                            alt="Tendencia de sentimiento" style="width: 100%; height: 280px; object-fit: contain;" />
+                    </div>
+
+                    <!-- Resumen -->
+                    <div class="highlight-box" style="margin-top: 2rem;">
+                        <h3>Resumen Automatizado</h3>
+                        <p style="font-size: 1rem;">
+                            Se mantiene un tono mayoritariamente <strong>neutro</strong> (53%), con un
+                            ligero aumento en artículos <strong>positivos</strong> que destacan avances en
+                            investigación. Las publicaciones <strong>negativas</strong> disminuyeron tras la
+                            campaña de prevención de la semana pasada.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="info-section">
+                <div class="container">
+                    <h2 class="section-title">Mapa de Cobertura Internacional</h2>
+                    <p style="text-align: center; margin-top: -1rem; color: var(--dark-gray); font-size: 1rem;">
+                        Noticias sobre cáncer de seno por país según medios digitales en español e inglés
+                    </p>
+
+                    <!-- Filtros -->
+                    <div class="cards-grid"
+                        style="margin-top: 2rem; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+                        <div class="info-card" style="padding: 1rem;">
+                            <label for="idioma-mapa"
+                                style="font-size: 0.85rem; color: var(--dark-gray); font-weight: bold;">Idioma</label>
+                            <select id="idioma-mapa"
+                                style="width: 100%; padding: 0.5rem; border-radius: 8px; border: 1px solid #ccc; margin-top: 0.5rem;">
+                                <option>Todos</option>
+                                <option>Español</option>
+                                <option>Inglés</option>
+                            </select>
+                        </div>
+                        <div class="info-card" style="padding: 1rem;">
+                            <label for="categoria-mapa"
+                                style="font-size: 0.85rem; color: var(--dark-gray); font-weight: bold;">Categoría
+                                temática</label>
+                            <select id="categoria-mapa"
+                                style="width: 100%; padding: 0.5rem; border-radius: 8px; border: 1px solid #ccc; margin-top: 0.5rem;">
+                                <option>Todos</option>
+                                <option>Prevención</option>
+                                <option>Tratamiento</option>
+                                <option>Testimonios</option>
+                                <option>Política pública</option>
+                            </select>
+                        </div>
+                        <div class="info-card" style="padding: 1rem;">
+                            <label for="semana-mapa"
+                                style="font-size: 0.85rem; color: var(--dark-gray); font-weight: bold;">Semana</label>
+                            <select id="semana-mapa"
+                                style="width: 100%; padding: 0.5rem; border-radius: 8px; border: 1px solid #ccc; margin-top: 0.5rem;">
+                                <option>Semana 24</option>
+                                <option>Semana 23</option>
+                                <option>Semana 22</option>
+                            </select>
+                        </div>
+                        <div class="info-card" style="padding: 1rem; display: flex; align-items: flex-end;">
+                            <button
+                                style="background: var(--primary-blue); color: white; width: 100%; padding: 0.6rem 1rem; border-radius: 30px; font-weight: bold; border: none; cursor: pointer;">
+                                Aplicar filtros
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Mapa -->
+                    <div class="info-card" style="margin-top: 3rem;">
+                        <h3 style="color: var(--primary-blue); font-size: 1.3rem; margin-bottom: 1rem;">Distribución
+                            geográfica de noticias</h3>
+                        <div id="map" style="width: 100%; height: 400px; border-radius: 15px; border: 1px solid #ddd;">
+                        </div>
+                        <p style="font-size: 0.8rem; color: var(--dark-gray); margin-top: 0.5rem;">*Haz clic en un
+                            círculo para detalles.*</p>
+                    </div>
+
+                    <!-- Leyenda -->
+                    <div class="highlight-box"
+                        style="margin-top: 2rem; background: var(--light-gray); color: var(--dark-gray);">
+                        <h3 style="color: var(--primary-blue); margin-bottom: 1rem;">Leyenda de Cobertura</h3>
+                        <ul style="display: flex; flex-wrap: wrap; gap: 2rem; font-size: 0.95rem;">
+                            <li style="display: flex; align-items: center; gap: 0.5rem;">
+                                <span
+                                    style="width: 1rem; height: 1rem; border-radius: 50%; background: #dbeafe; border: 1px solid #ccc;"></span>
+                                Poca cobertura
+                            </li>
+                            <li style="display: flex; align-items: center; gap: 0.5rem;">
+                                <span
+                                    style="width: 1rem; height: 1rem; border-radius: 50%; background: #60a5fa; border: 1px solid #ccc;"></span>
+                                Cobertura media
+                            </li>
+                            <li style="display: flex; align-items: center; gap: 0.5rem;">
+                                <span
+                                    style="width: 1rem; height: 1rem; border-radius: 50%; background: #1d4ed8; border: 1px solid #ccc;"></span>
+                                Alta cobertura
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Resumen -->
+                    <div class="highlight-box" style="margin-top: 2rem;">
+                        <h3>Resumen Automatizado</h3>
+                        <p style="font-size: 1rem;">
+                            Durante la semana 24, <strong>Estados Unidos</strong> lideró en cantidad de noticias,
+                            seguido por
+                            <strong>México</strong> y <strong>Colombia</strong>. En Europa, se observó un repunte en
+                            <strong>España</strong>, con énfasis en prevención y política pública.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="info-section">
+                <div class="container">
+                    <h2 class="section-title">Noticias Destacadas</h2>
+                    <p style="text-align: center; margin-top: -1rem; color: var(--dark-gray); font-size: 1rem;">
+                        Filtra, ordena y accede al contenido original
+                    </p>
+
+                    <!-- Filtros -->
+                    <div class="cards-grid"
+                        style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); margin-top: 2rem;">
+                        <input type="text" placeholder="Buscar por título o medio..."
+                            style="padding: 0.75rem; border-radius: 8px; border: 1px solid #ccc;" />
+                        <select style="padding: 0.75rem; border-radius: 8px; border: 1px solid #ccc;">
+                            <option>Todos los países</option>
+                            <option>Colombia</option>
+                            <option>EE.UU.</option>
+                            <option>España</option>
+                        </select>
+                        <select style="padding: 0.75rem; border-radius: 8px; border: 1px solid #ccc;">
+                            <option>Idioma</option>
+                            <option>Español</option>
+                            <option>Inglés</option>
+                        </select>
+                        <button
+                            style="background: var(--primary-blue); color: white; padding: 0.75rem; border-radius: 30px; font-weight: bold; border: none; cursor: pointer;">
+                            Aplicar filtros
+                        </button>
+                    </div>
+
+                    <!-- Tabla de noticias -->
+                    <div class="info-card" style="margin-top: 2rem; overflow-x: auto;">
+                        <table style="width: 100%; border-collapse: collapse; font-size: 0.95rem;">
+                            <thead
+                                style="background: var(--light-gray); color: var(--dark-gray); text-transform: uppercase; font-size: 0.8rem;">
+                                <tr>
+                                    <th style="padding: 0.75rem; text-align: left;">Título</th>
+                                    <th style="padding: 0.75rem;">País</th>
+                                    <th style="padding: 0.75rem;">Idioma</th>
+                                    <th style="padding: 0.75rem;">Fecha</th>
+                                    <th style="padding: 0.75rem;">Tema</th>
+                                    <th style="padding: 0.75rem;">Tono</th>
+                                    <th style="padding: 0.75rem; text-align: center;">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody style="color: var(--dark-gray); border-top: 1px solid #eee;">
+                                <tr>
+                                    <td style="padding: 0.75rem;"><a href="https://webmd.com/article123" target="_blank"
+                                            style="color: var(--primary-blue); text-decoration: underline;">Avances en
+                                            prevención de cáncer de seno ↗</a></td>
+                                    <td style="padding: 0.75rem;">🇨🇴 Colombia</td>
+                                    <td style="padding: 0.75rem;">Español</td>
+                                    <td style="padding: 0.75rem;">10-06-2025</td>
+                                    <td style="padding: 0.75rem;"><span class="badge">Prevención</span></td>
+                                    <td style="padding: 0.75rem;"><span class="badge-neutral">Neutro</span></td>
+                                    <td style="padding: 0.75rem; text-align: center;"><button onclick="openModal()"
+                                            style="color: var(--primary-blue); text-decoration: underline;">Ver
+                                            resumen</button></td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 0.75rem;"><a href="https://cnn.com/health/update-ai-screening"
+                                            target="_blank"
+                                            style="color: var(--primary-blue); text-decoration: underline;">IA mejora
+                                            diagnóstico temprano ↗</a></td>
+                                    <td style="padding: 0.75rem;">🇺🇸 EE.UU.</td>
+                                    <td style="padding: 0.75rem;">Inglés</td>
+                                    <td style="padding: 0.75rem;">09-06-2025</td>
+                                    <td style="padding: 0.75rem;"><span class="badge">Diagnóstico</span></td>
+                                    <td style="padding: 0.75rem;"><span class="badge-positive">Positivo</span></td>
+                                    <td style="padding: 0.75rem; text-align: center;"><button
+                                            style="color: var(--primary-blue); text-decoration: underline;">Ver
+                                            resumen</button></td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 0.75rem;"><a
+                                            href="https://elpais.com/sociedad/reportaje-testimonios" target="_blank"
+                                            style="color: var(--primary-blue); text-decoration: underline;">Testimonios
+                                            conmueven redes sociales ↗</a></td>
+                                    <td style="padding: 0.75rem;">🇪🇸 España</td>
+                                    <td style="padding: 0.75rem;">Español</td>
+                                    <td style="padding: 0.75rem;">11-06-2025</td>
+                                    <td style="padding: 0.75rem;"><span class="badge">Testimonios</span></td>
+                                    <td style="padding: 0.75rem;"><span class="badge-negative">Negativo</span></td>
+                                    <td style="padding: 0.75rem; text-align: center;"><button
+                                            style="color: var(--primary-blue); text-decoration: underline;">Ver
+                                            resumen</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Modal simulado -->
+                    <div id="modal" class="hidden"
+                        style="position: fixed; inset: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 999;">
+                        <div
+                            style="background: white; border-radius: 15px; padding: 2rem; max-width: 600px; width: 90%;">
+                            <h3 style="font-size: 1.2rem; color: var(--primary-blue); margin-bottom: 1rem;">Avances en
+                                prevención de cáncer de seno</h3>
+                            <div style="margin-bottom: 1rem;">
+                                <span class="badge">Prevención</span>
+                                <span class="badge-neutral">Neutro</span>
+                                <span class="badge-positive">🇨🇴 Español</span>
+                            </div>
+                            <p style="font-size: 0.95rem; color: var(--dark-gray); margin-bottom: 1.5rem;">
+                                Esta noticia destaca campañas recientes enfocadas en detección temprana en comunidades
+                                rurales de Colombia. El
+                                enfoque es informativo y se sustenta en declaraciones de autoridades sanitarias y
+                                testimonios de pacientes.
+                            </p>
+                            <div style="display: flex; justify-content: space-between;">
+                                <a href="https://webmd.com/article123" target="_blank"
+                                    style="color: var(--primary-blue); text-decoration: underline;">Abrir artículo
+                                    original ↗</a>
+                                <button onclick="closeModal()"
+                                    style="background: #ddd; border: none; padding: 0.5rem 1rem; border-radius: 10px;">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="info-section">
+                <div class="container">
+                    <h2 class="section-title">Exportación y Reportes</h2>
+                    <p style="text-align: center; margin-top: -1rem; color: var(--dark-gray); font-size: 1rem;">
+                        Descarga datos, gráficos o informes automatizados del análisis semanal
+                    </p>
+
+                    <!-- Tarjetas de exportación -->
+                    <div class="cards-grid"
+                        style="margin-top: 2rem; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+                        <!-- CSV/XLSX -->
+                        <div class="info-card">
+                            <h3>Tabla de Noticias</h3>
+                            <p>Exporta las noticias filtradas para análisis en hoja de cálculo.</p>
+                            <div style="margin-top: 1rem; display: flex; gap: 1rem;">
+                                <button onclick="simulateExport('CSV')" class="cta-button" style="flex: 1;">CSV</button>
+                                <button onclick="simulateExport('XLSX')" class="cta-button"
+                                    style="flex: 1;">XLSX</button>
+                            </div>
+                        </div>
+
+                        <!-- Gráficos -->
+                        <div class="info-card">
+                            <h3>Gráficos</h3>
+                            <p>Descarga las visualizaciones clave (temas, tono, mapa).</p>
+                            <div style="margin-top: 1rem; display: flex; gap: 1rem;">
+                                <button onclick="simulateExport('PNG')" class="cta-button" style="flex: 1;">PNG</button>
+                                <button onclick="simulateExport('SVG')" class="cta-button" style="flex: 1;">SVG</button>
+                            </div>
+                        </div>
+
+                        <!-- PDF -->
+                        <div class="info-card">
+                            <h3>Informe PDF</h3>
+                            <p>Genera un informe semanal con resumen IA, gráficos y hallazgos.</p>
+                            <button onclick="simulateExport('PDF')" class="cta-button"
+                                style="margin-top: 1rem; width: 100%;">Generar PDF</button>
+                        </div>
+                    </div>
+
+                    <!-- Opciones avanzadas -->
+                    <div class="info-card" style="margin-top: 2rem; padding: 0;">
+                        <button onclick="toggleAdvanced()"
+                            style="width: 100%; padding: 1rem 1.5rem; background: transparent; border: none; font-weight: bold; font-size: 0.95rem; display: flex; justify-content: space-between; align-items: center; color: var(--dark-gray);">
+                            Opciones avanzadas
+                            <span id="arrow" style="display: inline-block; transition: transform 0.3s;">▼</span>
+                        </button>
+                        <div id="advancedPanel" class="hidden"
+                            style="border-top: 1px solid #eee; padding: 1rem 1.5rem;">
+                            <div class="cards-grid"
+                                style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
+                                <div>
+                                    <label style="font-size: 0.8rem; color: var(--dark-gray); font-weight: bold;">Rango
+                                        de Fechas</label>
+                                    <div style="display: flex; gap: 0.5rem; margin-top: 0.5rem;">
+                                        <input type="date"
+                                            style="flex: 1; padding: 0.5rem; border-radius: 8px; border: 1px solid #ccc;" />
+                                        <input type="date"
+                                            style="flex: 1; padding: 0.5rem; border-radius: 8px; border: 1px solid #ccc;" />
+                                    </div>
+                                </div>
+                                <div>
+                                    <label
+                                        style="font-size: 0.8rem; color: var(--dark-gray); font-weight: bold;">Filtros
+                                        Activos</label>
+                                    <input type="text" disabled value="País: Colombia · Idioma: Español"
+                                        style="margin-top: 0.5rem; width: 100%; padding: 0.5rem; background: #f0f0f0; border: 1px solid #ddd; border-radius: 8px;" />
+                                </div>
+                                <div>
+                                    <label
+                                        style="font-size: 0.8rem; color: var(--dark-gray); font-weight: bold;">Incluir
+                                        resúmenes IA</label>
+                                    <select
+                                        style="margin-top: 0.5rem; width: 100%; padding: 0.5rem; border-radius: 8px; border: 1px solid #ccc;">
+                                        <option>Sí</option>
+                                        <option>No</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Indicador de progreso -->
+                    <div id="progressBox"
+                        style="display: none; background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 10px; padding: 1rem; margin-top: 1rem; align-items: center; gap: 1rem;">
+                        <span id="progressText" style="color: #1d4ed8; font-size: 0.95rem;">Generando archivo...</span>
+                        <div id="progressSpinner"
+                            style="width: 20px; height: 20px; border: 2px solid #4a90e2; border-top: 2px solid transparent; border-radius: 50%; animation: spin 1s linear infinite;">
+                        </div>
+                    </div>
+
+                    <!-- Historial -->
+                    <div class="info-card" style="margin-top: 2rem;">
+                        <h3 style="margin-bottom: 1rem; color: var(--primary-blue); font-size: 1.2rem;">Historial de
+                            Exportaciones Recientes</h3>
+                        <ul style="list-style: none; padding-left: 0;">
+                            <li style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span>Informe_PDF_Sem24.pdf (hace 1 h)</span>
+                                <a href="#" style="color: var(--primary-blue); text-decoration: underline;">Descargar
+                                    ↗</a>
+                            </li>
+                            <li style="display: flex; justify-content: space-between;">
+                                <span>Noticias_Colombia_Sem24.csv (ayer)</span>
+                                <a href="#" style="color: var(--primary-blue); text-decoration: underline;">Descargar
+                                    ↗</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+
     </main>
 
     <footer>
@@ -1840,6 +2432,105 @@
         `;
         document.head.appendChild(style);
     </script>
+    <script>
+        const map = L.map('map').setView([20, 0], 2);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap & Leaflet'
+        }).addTo(map);
+
+        const coverageData = [
+            { country: 'Estados Unidos', lat: 37.8, lon: -96, total: 120, idioma: 'Inglés', tono: 'Neutro' },
+            { country: 'México', lat: 23.6, lon: -102, total: 60, idioma: 'Español', tono: 'Positivo' },
+            { country: 'Colombia', lat: 4.6, lon: -74, total: 45, idioma: 'Español', tono: 'Neutro' },
+            { country: 'España', lat: 40.5, lon: -3.7, total: 32, idioma: 'Español', tono: 'Positivo' }
+        ];
+
+        const maxTotal = Math.max(...coverageData.map(d => d.total));
+        const scaleRadius = val => 10 + (val / maxTotal) * 40;
+
+        coverageData.forEach(d => {
+            L.circle([d.lat, d.lon], {
+                radius: scaleRadius(d.total) * 10000,
+                color: '#3b82f6',
+                fillColor: '#3b82f6',
+                fillOpacity: 0.5,
+                weight: 1
+            })
+                .addTo(map)
+                .bindPopup(`<strong>${d.country}</strong><br/>
+                Noticias: ${d.total}<br/>
+                Idioma predominante: ${d.idioma}<br/>
+                Tono predominante: ${d.tono}`);
+        });
+    </script>
+    <script>
+        function openModal() {
+            const modal = document.getElementById('modal');
+            if (modal) {
+                modal.classList.remove('hidden');
+                modal.style.display = 'flex';
+            }
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('modal');
+            if (modal) {
+                modal.classList.add('hidden');
+                modal.style.display = 'none';
+            }
+        }
+
+        // Cerrar si se hace clic fuera del contenido
+        window.addEventListener('click', function (event) {
+            const modal = document.getElementById('modal');
+            if (modal && !modal.classList.contains('hidden') && event.target === modal) {
+                closeModal();
+            }
+        });
+    </script>
+
+    <script>
+        function simulateExport(type) {
+            const box = document.getElementById('progressBox');
+            const text = document.getElementById('progressText');
+
+            // Reset styles
+            box.style.display = 'flex';
+            box.style.backgroundColor = '#eff6ff'; // azul claro
+            box.style.borderColor = '#bfdbfe';
+            text.style.color = '#1d4ed8';
+            text.textContent = `Generando archivo ${type}...`;
+
+            // Después de 3 segundos simula descarga
+            setTimeout(() => {
+                text.textContent = `¡${type} listo para descargar!`;
+                box.style.backgroundColor = '#ecfdf5'; // verde claro
+                box.style.borderColor = '#bbf7d0';
+                text.style.color = '#047857';
+
+                // Ocultar luego de 5 segundos más (opcional)
+                setTimeout(() => {
+                    box.style.display = 'none';
+                }, 5000);
+            }, 3000);
+        }
+
+        function toggleAdvanced() {
+            const panel = document.getElementById('advancedPanel');
+            const arrow = document.getElementById('arrow');
+
+            const isVisible = panel && !panel.classList.contains('hidden');
+            if (isVisible) {
+                panel.classList.add('hidden');
+                arrow.style.transform = 'rotate(0deg)';
+            } else {
+                panel.classList.remove('hidden');
+                arrow.style.transform = 'rotate(180deg)';
+            }
+        }
+    </script>
+
 </body>
 
 </html>
